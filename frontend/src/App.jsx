@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_URL = "https://legalease-1-pepl.onrender.com";
+
 function App() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [summary, setSummary] = useState("");
@@ -28,9 +30,9 @@ function App() {
       formData.append("file", selectedFile);
 
       const uploadResponse = await axios.post(
-        "http://127.0.0.1:8000/upload-document",
-        formData
-      );
+  `${API_URL}/upload-document`,
+  formData
+);
 
       console.log("Upload response:", uploadResponse.data);
 
@@ -38,7 +40,7 @@ function App() {
       const text = uploadResponse.data.text_preview;
 
       const summaryResponse = await axios.post(
-        "http://127.0.0.1:8000/summarize-text",
+        "`${API_URL}/summarize-text`",
         null,
         {
           params: {
@@ -71,7 +73,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/generate-document",
+        `${API_URL}/generate-document`,
         {
           document_type: documentType,
           parties: parties,
@@ -347,7 +349,7 @@ function App() {
           onClick={async () => {
             try {
               const response = await axios.post(
-                "http://127.0.0.1:8000/download-txt",
+                `${API_URL}/download-txt`,
                 {
                   document: generatedDocument
                 },
@@ -386,7 +388,7 @@ function App() {
           onClick={async () => {
             try {
               const response = await axios.post(
-                "http://127.0.0.1:8000/download-pdf",
+                `${API_URL}/download-pdf`,
                 {
                   document: generatedDocument
                 },
@@ -425,7 +427,7 @@ function App() {
           onClick={async () => {
             try {
               const response = await axios.post(
-                "http://127.0.0.1:8000/download-docx",
+                `${API_URL}/download-docx`,
                 {
                   document: generatedDocument
                 },
